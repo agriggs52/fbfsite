@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="stylesheet" href="style.css" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comic Details</title>
+  <style>
+    
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    #backBtn {
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+    #detailsContainer img {
+      max-width: 250px;
+      display: block;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" id="backBtn">← Back to Comics</a>
+
+  <div id="detailsContainer"></div>
+
+  <script>
+    const comicData = JSON.parse(localStorage.getItem('selectedComic'));
+    const container = document.getElementById('detailsContainer');
+
+    if (comicData) {
+      container.innerHTML = `
+        <h1>${comicData.title}</h1>
+        <img src="${comicData.img}" alt="${comicData.title}" />
+        <h3>By ${comicData.author}</h3>
+        <p><strong>Publisher:</strong> ${comicData.publisher || 'N/A'}</p>
+        <p><strong>Release:</strong> ${comicData.release || 'Unknown'}</p>
+        <p>${comicData.summary || 'No summary available.'}</p>
+      `;
+    } else {
+      container.innerHTML = '<p>No comic data found.</p>';
+    }
+  </script>
+</body>
+</html>

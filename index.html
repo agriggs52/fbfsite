@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frame by Frame</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #4b1248, #190a27);
+      color: white;
+      margin: 0;
+        font-family: 'Inter', sans-serif;
+    }
+    .top-right {
+        font-size: 0.8em; 
+        color: white;
+        margin-left: auto; 
+        display: flex;
+        align-items: center;
+        gap: 15px; 
+    }
+    .top-right a {
+      text-decoration: none;
+      color: #71b2f7;
+      margin-left: 10px;
+      font-weight: 600;
+    }
+    h1, h2, .section-header {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 1px;
+    }
+  .site-header {
+  position: sticky;
+  top: 0;
+  background-color: #2b0e2e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.logo {
+  height: 50px;
+}
+.carousel-container {
+  background: #3c0d35;
+  border-radius: 12px;
+  padding: 20px 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  position: relative;  
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.3s ease;
+  will-change: transform;
+  flex-wrap: nowrap;
+}
+.carousel-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.carousel-item img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.carousel-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.carousel-title {
+  font-size: 1.1em;
+  margin: 0;
+  color: #fff;
+}
+
+.carousel-author {
+  font-size: 0.9em;
+  margin: 5px 0 0;
+  color: #ccc;
+}
+
+.clickable-title {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 180px;
+  scroll-snap-align: start;
+  background: #521143;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.carousel-item:hover {
+  transform: scale(1.05);
+}
+
+
+.carousel-item img {
+  width: 150px;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 45%;
+  background-color: rgba(0,0,0,0.4);
+  border: none;
+  color: white;
+  font-size: 2em;
+  padding: 0 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+@media (min-width: 600px) {
+  .carousel-item {
+    min-width: 50%;
+  }
+}
+
+@media (min-width: 900px) {
+  .carousel-item {
+    min-width: 33.33%;
+  }
+}
+ .comic-section {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  padding: 0 10px;
+}
+
+ .comic-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+ .comic-row img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+.comic-card img {
+  max-width: 100%;
+  max-height: 225px;   
+  object-fit: contain;  
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+    .comic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+      color:#333;
+    }
+  .comic-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   
+  justify-content: center;  
+  background: #611358;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 15px;  
+  text-align: center;  
+}
+
+  @keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.comic-card:hover {
+  animation: pulse 0.3s ease-in-out;
+}
+
+    .comic-card.expanded {
+      background-color: #69155f;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      color: white;
+      transform: scale(1.02);
+    }
+    .comic-card.expanded img {
+      filter: brightness(0.8);
+    }
+    .comic-card img {
+  width: 100%;
+  height: 225px;  
+  object-fit: cover;  
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+    .comic-card h3, .comic-card p {
+      margin: 5px 0;
+    }
+    .comic-details p:not(:first-child) {
+      display: none;
+    }
+    .comic-card.expanded .comic-details p {
+      display: block;
+    }
+   .details-btn {
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.details-btn:hover {
+  background-color: #e91e63;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: rgba(255,255,255,0.1);
+  font-weight: 600;
+  font-size: 0.85em;
+}
+.status-badge.current {
+  background-color: #2ecc71;
+  color: #fff;
+}
+.status-badge.to-read {
+  background-color: #3498db;
+  color: #fff;
+}
+.status-badge.did-not-finish {
+  background-color: #e74c3c;
+  color: #fff;
+}
+.sticky-search-container {
+  position: sticky;
+  top: 0;
+  background: #2b0e2e; 
+  padding: 10px 30px;
+  z-index: 1100;  
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+  max-width: 600px; 
+  margin: 0 auto;
+  display: block;
+}
+
+
+    .section-header {
+      margin-top: 30px;
+      color: white;
+    font-family: 'Anton', sans-serif;    
+  }
+
+    #noResults {
+      font-weight: bold;
+      color: red;
+      margin-top: 15px;
+    }
+    .user-info, .tagline {
+      color: white;
+  font-family: 'Anton', sans-serif;      
+  margin-bottom: 0.5em;
+    }
+    #suggestionsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #2b0e2e;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 1200;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#suggestionsList li {
+  padding: 10px 15px;
+  cursor: pointer;
+  color: white;
+  border-bottom: 1px solid #451644;
+  font-weight: 600;
+}
+
+#suggestionsList li:last-child {
+  border-bottom: none;
+}
+
+#suggestionsList li:hover, 
+#suggestionsList li[aria-selected="true"] {
+  background-color: #69155f;
+}
+
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Frame by Frame</h1>
+  <img src="images/site-logo.png" alt="Site Logo" class="logo" />
+  <div class="top-right">
+    <span id="userDisplay"><a href="profile.html" id="profileLink"></a></span>
+    <a href="login.html" id="loginBtn" style="display:none;">Login</a>
+    <a href="#" id="logoutLink" style="display:none;">Sign Out</a>
+  </div>
+</header>
+
+
+
+<div class="sticky-search-container">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search comics by title or author..."
+    aria-label="Search comics"
+    autocomplete="off"
+  />
+  <ul id="suggestionsList" role="listbox" aria-label="Search suggestions"></ul>
+</div>
+
+  <div class="container">
+    <p class="user-info">Welcome back!</p>
+    <p class="tagline">Your reading journey starts here. Never lose your place in the multiverse.</p>
+
+   
+    <h2 class="section-header" id="topPicksHeader">Today's Top Picks</h2>
+
+    <div id="comicCarousel" class="carousel-container" aria-label="Featured Comics">
+  <div class="carousel-track"></div>
+  <button class="carousel-btn prev" aria-label="Previous Slide">&#10094;</button>
+  <button class="carousel-btn next" aria-label="Next Slide">&#10095;</button>
+
+</div>
+
+    <h2 class="section-header" id="searchResultsHeader" style="display: none;">Search Results</h2>
+    <p id="noResults" style="display: none;">No results found.</p>
+
+<div class="comic-section">
+  <h2>For Marvel Rivals Players</h2>
+  <p>Do a little homework on your favorite heroes.</p>
+  <div class="comic-row" data-theme="rivals"></div>
+</div>
+
+<div class="comic-section">
+  <h2>Terrifyingly Brilliant</h2>
+  <p>Horror and suspense that will keep you thinking.</p>
+  <div class="comic-row" data-theme="horror"></div>
+</div>
+
+<div class="comic-section">
+  <h2>Xmen</h2>
+  <p> Learn more about the mutants and the world they fight to protect despite its fear of them.</p>
+  <div class="comic-row" data-theme="xmen"></div>
+</div>
+
+<div class="comic-section">
+  <h2>Cult Classics</h2>
+  <p>Hidden gems and fan favorites alike.</p>
+  <div class="comic-row" data-theme="indie"></div>
+</div>
+
+<div class="comic-section">
+  <h2>DC Universe</h2>
+  <p>Dive head first into these fresh takes on beloved heros... and villains.</p>
+  <div class="comic-row" data-theme="absolute">
+
+  </div>
+</div>
+
+
+    <div class="comic-grid" role="list">
+      <div class="comic-card" data-title="New X-Men" data-author="Grant Morrison"  role="listitem" tabindex="0" data-theme="xmen">
+        <img src="covers/new-xmen.jpg" alt="New X-Men Cover" />
+        <h3>New X-Men</h3>
+        <p>by Grant Morrison</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2001–2004</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong> The human race is headed towards extinction and the X-Men must find a way to evolve! Writer Grant Morrison brings his revolutionary vision to Marvel's mutants in a three-year run filled with big ideas, memorable new characters and shocks you'll never see coming!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+      <div class="comic-card" data-title="Absolute Batman" data-author="Scott Snyder" data-theme="absolute">
+        <img src="covers/absolute-batman.jpg" alt="Absolute Batman Cover" />
+        <h3>Absolute Batman</h3>
+        <p>by Scott Snyder</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024-present</p>
+          <p><strong>Publisher:</strong> DC Comics</p>
+          <p><strong>Summary:</strong> Batman legend Scott Snyder and iconic artist Nick Dragotta transform the Dark Knight's tale for the modern age! Without the mansion... without the money... without the butler... what's left is the Absolute Dark Knight!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+
+     <!-- <div class="comic-card" data-title="Nightwing" data-theme="dc" data-author="Tom Taylor">
+        <img src="covers/nightwing.jpg" alt="Nightwing Cover" />
+        <h3>Nightwing</h3>
+        <p>by Tom Taylor</p>
+        <div class="comic-details">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge"></div>
+          <p><strong>Release:</strong> 2021-present</p>
+          <p><strong>Publisher:</strong> DC Comics</p>
+          <p><strong>Summary:</strong> Can Nightwing, the heart of the DC Universe, stop a new criminal who literally collects hearts from the city's citizens? Nightwing is back--and his drive to keep Blüdhaven safe has never been stronger! But his adoptive city has elected a new mayor with the last name Zucco.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+      -->
+
+
+      <div class="comic-card" data-title="Saga" data-author="Brian K Vaughan" data-theme="indie">
+        <img src="covers/saga.jpg" alt="Saga Cover" />
+        <h3>Saga</h3>
+        <p>by Brian K Vaughan</p>
+        <div class="comic-details">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge"></div>
+          <p><strong>Release:</strong> 2012-present</p>
+          <p><strong>Publisher:</strong> Image Comics</p>
+          <p><strong>Summary:</strong> Saga is an epic space opera/fantasy comic book series created by writer Brian K. Vaughan and artist Fiona Staples, published monthly by Image Comics. The series is heavily influenced by Star Wars, and based on ideas Vaughan conceived both as a child and as a parent. It depicts two lovers from long-warring extraterrestrial races, Alana and Marko, fleeing authorities from both sides of a galactic war as they struggle to care for their newborn daughter, Hazel, who occasionally narrates the series.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+      <div class="comic-card" data-title="Daredevil Born Again" data-author="Frank Miller" data-theme="rivals">
+        <img src="covers/daredevil-born-again.jpg" alt="Daredevil: Born Again Cover" />
+        <h3>Daredevil: Born Again</h3>
+        <p>by Frank Miller</p>
+        <div class="comic-details">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge"></div>
+          <p><strong>Release:</strong> 1986</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong> Frank Miller's famous run on Daredevil begins with "Born Again" — a story of betrayal and redemption that transforms Matt Murdock into a living legend of the Marvel Universe. When the Kingpin finds out Matt is Daredevil, he systematically destroys everything in Matt's life. This storyline forever changed how comics tell dark and gritty stories.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+     <div class="comic-card" data-title="Watchmen" data-author="Alan Moore" data-theme="indie">
+  <img src="covers/watchmen.jpg" alt="Watchmen Cover" />
+  <h3>Watchmen</h3>
+  <p>by Alan Moore</p>
+  <div class="comic-details">
+    <select class="status-select" aria-label="Set reading status">
+      <option value="">-- Mark as --</option>
+      <option value="current">Current Read</option>
+      <option value="to-read">To Read</option>
+      <option value="did-not-finish">Did Not Finish</option>
+    </select>
+    <div class="status-badge"></div>
+    <p><strong>Release:</strong> 1986-1987</p>
+    <p><strong>Publisher:</strong> DC Comics</p>
+    <p><strong>Summary:</strong> A deconstruction of the superhero genre, Watchmen is a gripping, mature tale that explores the morality and consequences of masked vigilantes in an alternate history Cold War America.</p>
+  </div>
+       <button class="view-more-btn details-btn">View More</button>
+</div>
+
+
+<div class="comic-card" data-title="Invincible" data-author="Robert Kirkman" data-theme="indie">
+  <img src="covers/invincible.jpg" alt="Invincible Cover" />
+  <h3>Invincible</h3>
+  <p>by Robert Kirkman</p>
+  <div class="comic-details">
+    <select class="status-select" aria-label="Set reading status">
+      <option value="">-- Mark as --</option>
+      <option value="current">Current Read</option>
+      <option value="to-read">To Read</option>
+      <option value="did-not-finish">Did Not Finish</option>
+    </select>
+    <div class="status-badge"></div>
+    <p><strong>Release:</strong> 2003–2018</p>
+    <p><strong>Publisher:</strong> Image Comics</p>
+    <p><strong>Summary:</strong> Invincible follows teenager Mark Grayson as he inherits superpowers from his alien father and faces the challenges of balancing a normal life with being a superhero.</p>
+  </div>
+       <button class="view-more-btn details-btn">View More</button>
+</div>
+
+
+<div class="comic-card" data-title="The Nice House on the Lake" data-author="James Tynion IV" data-theme="horror">
+  <img src="covers/nicehouse.jpg" alt="The Nice House on the Lake Cover" />
+  <h3>The Nice House on the Lake</h3>
+  <p>by James Tynion IV</p>
+  <div class="comic-details">
+    <select class="status-select" aria-label="Set reading status">
+      <option value="">-- Mark as --</option>
+      <option value="current">Current Read</option>
+      <option value="to-read">To Read</option>
+      <option value="did-not-finish">Did Not Finish</option>
+    </select>
+    <div class="status-badge"></div>
+    <p><strong>Release:</strong> 2021–2022</p>
+    <p><strong>Publisher:</strong> DC Comics</p>
+    <p><strong>Summary:</strong> The enigmatic Walter invites ten of his close friends and acquaintances to spend a week at an opulent lake house, initially believed to be in Wisconsin. On the group's first night at the house, they discover to their horror that the outside world is ending.</p>
+  </div>
+       <button class="view-more-btn details-btn">View More</button>
+</div>
+
+
+<div class="comic-card" data-title="Paper Girls" data-author="Brian K. Vaughan" data-theme="indie">
+  <img src="covers/papergirls.jpg" alt="Paper Girls" />
+        <h3>Paper Girls</h3>
+        <p>by Brian K. Vaughan </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2015-2019</p>
+          <p><strong>Publisher:</strong> Image Comics</p>
+          <p><strong>Summary:</strong> Paper Girls is a sci-fi mystery comic series by Brian K. Vaughan and Cliff Chiang about four 12-year-old newspaper delivery girls in 1988 who stumble into a time-traveling war. Their simple, suburban lives are thrown into chaos when they are pulled into a conflict between two opposing factions of time travelers: the "Old-Timers" and the "teenagers". </p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+<div class="comic-card" data-title="Scott Pilgrim vs the World" data-author="Bryan Lee O'Malley" data-theme="indie"> 
+        <img src="covers/scott.jpg" alt="Scott Pilgrim Vs the World" />
+        <h3>Scott Pilgrim vs the World</h3>
+        <p>by Bryan Lee O'Malley </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2004-2010</p>
+          <p><strong>Publisher:</strong> Oni Press</p>
+          <p><strong>Summary:</strong> Scott Pilgrim is a lovesick slacker who must battle his new crush’s seven evil exes to win her heart. Packed with humor, action, and indie style, this cult-hit comic blends romance and retro video game aesthetics.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+      <div class="comic-card" data-title="Ultimate Spiderman" data-author="Jonathan Hickman" data-theme="rivals"> 
+        <img src="covers/spiderman.jpg" alt="Ultimate Spiderman" />
+        <h3>Ultimate Spiderman</h3>
+        <p>by Jonathan Hickman </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024-present</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong>After the events of ULTIMATE INVASION, the world needs a hero…who will rise up to take on that responsibility? Prepare to be entangled in a web of mystery and excitement as the all-new ULTIMATE SPIDER-MAN comic redefines the wall-crawler for the 21st Century!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+ <div class="comic-card" data-title="House of X/Powers of X" data-author="Jonathan Hickman" data-theme="xmen">
+        <img src="covers/housex.jpg" alt="House of X Powers of X" />
+        <h3>House of X/Powers of X</h3>
+        <p>by Jonathan Hickman </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong>In HOUSE OF X, Charles Xavier reveals his master plan for mutantkind — one that will bring mutants out of humankind’s shadow and into the light once more! Meanwhile, POWERS OF X reveals mutantkind’s secret history, changing the way you will look at every X-Men story before and after. But as Xavier sows the seeds of the past, the X-Men’s future blossoms into trouble for all of mutantdom.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+ <div class="comic-card" data-title="The Walking Dead" data-author="Robert Kirkman" data-theme="horror">
+        <img src="covers/twd.jpg" alt="The Walking Dead" />
+        <h3>The Walking Dead</h3>
+        <p>by Robert Kirkman </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2003-2019</p>
+          <p><strong>Publisher:</strong> Image Comics</p>
+          <p><strong>Summary:</strong>This volume begins the story of Rick Grimes, a sheriff's deputy from Kentucky, who is wounded in action and emerges from a coma to find the world plagued by the undead.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+      <div class="comic-card" data-title="Runaways" data-author="Rainbow Rowell" data-theme="indie">
+        <img src="covers/runaways.jpg" alt="Runaways" />
+        <h3>Runaways</h3>
+        <p>by Rainbow Rowell </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2017-2021</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong>GET READY TO RUN! The "IT" book of the early 2000s with the original cast is back - Nico! Karolina! Molly! Chase! Old Lace! And, could it be? GERT?! The heart of the Runaways died years ago, but you won't believe how she returns!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+      
+
+      <div class="comic-card" data-title="Absolute Evil" data-author="Robert Kirkman" data-theme="absolute" >
+        <img src="covers/absolute-evil.jpg" alt="Absolute Evil" />
+        <h3>Absolute Evil</h3>
+        <p>by Robert Kirkman </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2025-present</p>
+          <p><strong>Publisher:</strong> DC Comics</p>
+          <p><strong>Summary:</strong>IT'S THE ONE-YEAR ANNIVERSARY OF THE ABSOLUTE UNIVERSE — AND ITS VILLAINS STAND UNITED! Without heroes... without protection... without restraint... there is only ABSOLUTE EVIL.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+      <div class="comic-card" data-title="Moonknight" data-author="Warren Ellis" data-theme="rivals" >
+        <img src="covers/moonknight.jpg" alt="Moonknight"/>
+        <h3>Moonknight</h3>
+        <p>by Warren Ellis </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2014-2015</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong>Marc Spector is Moon Knight!...Or is he? It's hard to tell these days, especially when New York's wildest vigilante protects the street with two-fisted justice and three-that's right, count 'em-different personalities!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+      <div class="comic-card" data-title="Doctor Strange: The Oath" data-author="Brian K Vaughan" data-theme="rivals" >
+        <img src="covers/strange.jpg" alt="Doctor Strange: The Oath"/>
+        <h3>Doctor Strange: The Oath</h3>
+        <p>by Brian K Vaughan </p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2006-2007</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong>Doctor Stephen Strange embarks on the most important paranormal investigation of his career, as he sets out to solve an attempted murder - his own!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+      <div class="comic-card" data-title="Absolute Superman" data-author="Jason Aaron" data-theme="absolute" >
+        <img src="covers/absolute-superman.jpg" alt="Absolute Superman"/>
+        <h3>Absolute Superman</h3>
+        <p>by Jason Aaron</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024-present</p>
+          <p><strong>Publisher:</strong> DC Comics</p>
+          <p><strong>Summary:</strong>Without the fortress…without the family…without a home…what’s left is the Absolute Man of Steel.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+      <div class="comic-card" data-title="Absolute Wonderwoman" data-author="Kelly Thompson" data-theme="absolute" >
+        <img src="covers/absolute-ww.jpg" alt="Absolute Wonderwoman"/>
+        <h3>Absolute Wonderwoman</h3>
+        <p>by Kelly Thompson</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024-present</p>
+          <p><strong>Publisher:</strong> DC Comics</p>
+          <p><strong>Summary:</strong>Without the island paradise…without the sisterhood that shaped her…without a mission of peace…what's left is the Absolute Amazon!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+        <div class="comic-card" data-title="Fantastic Four" data-author="Stan Lee" data-theme="rivals" >
+        <img src="covers/fantastic.jpg" alt="Fantastic Four"/>
+        <h3>Fantastic Four</h3>
+        <p>by Stan Lee</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 1961-1972</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong>Jack Kirby set the standard for massive monster mayhem covers before the super hero boom. So bringing those elements together? Magical.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+        <div class="comic-card" data-title="Uncanny Xmen" data-author="Gail Simone" data-theme="xmen" >
+        <img src="covers/uncannyxmen.jpg" alt="Uncanny Xmen"/>
+        <h3>Uncanny Xmen</h3>
+        <p>by Gail Simone</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024-present</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong>PROFESSOR X...IS GONE! A core group of essential X-Men rise FROM THE ASHES to face a world without a home - and without Professor X!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+  <div class="comic-card" data-title="Psylocke" data-author="Alyssa Wong" data-theme="rivals" >
+        <img src="covers/psylocke.jpg" alt="Psylocke"/>
+        <h3>Psylocke</h3>
+        <p>by Alyssa Wong</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024-present</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong>SHE WAS MADE FOR VIOLENCE! Trained to be an assassin since birth, Kwannon chose to be an X-Man. But there are still some jobs too dirty for the X-Men. And some paths have to be walked alone. When the mission is brutal, Psylocke unsheathes her blades to punish those who prey on mutants. </p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+      <div class="comic-card" data-title="Hellboy" data-author="Mike Mignola" data-theme="horror" >
+        <img src="covers/hellboy.jpg" alt="Hellboy"/>
+        <h3>Hellboy</h3>
+        <p>by Mike Mignola</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 1994</p>
+          <p><strong>Publisher:</strong> Dark Horse Comics</p>
+          <p><strong>Summary:</strong>The story jumps from Hellboy's mysterious World War II origin to his 1994 confrontation with the man who summoned him to earth, and the earliest signs of the plague of frogs. Avoiding his supposed fate as the herald of the end of the world, Hellboy continues with the Bureau for Paranormal Research and Defense, fighting alongside Abe Sapien, Liz Sherman, and drafting Roger Homunculus into his own ill-fated service with the B.P.R.D. </p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+      <div class="comic-card" data-title="W0RLDTR33" data-author="James Tynion IV" data-theme="horror" >
+        <img src="covers/worldtree.jpg" alt="W0RLDTR33"/>
+        <h3>W0RLDTR33</h3>
+        <p>by James Tynion IV</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2023-present</p>
+          <p><strong>Publisher:</strong> Image Comics</p>
+          <p><strong>Summary:</strong>Gabriel and his friends discovered the Undernet, a secret architecture to the Internet. They charted their exploration on a message board called W0RLDTR33.Then they lost control. Someone broke into W0RLDTR33-someone who welcomed the violent hold the Undernet had on them. At great personal cost, Gabriel and the others thought they sealed the Undernet away for good. They were wrong. And now they will know the meaning of PH34R.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+     <div class="comic-card" data-title="Black Magick" data-author="Greg Rucka" data-theme="horror" >
+        <img src="covers/black-magick.jpg" alt="Black Magick"/>
+        <h3>Black Magick</h3>
+        <p>by Greg Rucka</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2016-present</p>
+          <p><strong>Publisher:</strong> Image Comics</p>
+          <p><strong>Summary:</strong>Detective Rowan Black works robbery/homicide for the Portsmouth PD, but her greatest mystery is the truth about herself...both who she has been, and who she will become. Yet there are others in Rowan's world with very long memories, and the power that one person holds, another will always covet.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+    <div class="comic-card" data-title="Wytches" data-author="Scott Snyder" data-theme="horror" >
+        <img src="covers/wytches.jpg" alt="Wytches"/>
+        <h3>Wytches</h3>
+        <p>by Scott Snyder</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2014-2015</p>
+          <p><strong>Publisher:</strong> Image Comics</p>
+          <p><strong>Summary:</strong>Across the globe, century after century, men and women were burned, drowned, hanged, tortured, imprisoned, persecuted, and murdered for witchcraft. None of them were witches. They died protecting a terrible and hidden truth: witches, real witches, are out there. They are ancient, elusive, and deadly creatures that are rarely seen and even more rarely survived.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+ <div class="comic-card" data-title="Ultimate Xmen" data-author="PEACH MOMOKO" data-theme="xmen" >
+        <img src="covers/ult-xmen.jpg" alt="Ultimate Xmen"/>
+        <h3>Ultimate Xmen</h3>
+        <p>by PEACH MOMOKO</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024-present</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong> Hisako Ichiki is a teenage girl who just wants to live a normal life - go to school, hang out with her friends, ignore the political strife broiling over after the events of ULTIMATE INVASION - but life has other plans for her.</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+      <div class="comic-card" data-title="Exceptional Xmen" data-author="Eve Ewing" data-theme="xmen" >
+        <img src="covers/except-xmen.jpg" alt="Exceptional Xmen"/>
+        <h3>Exceptional Xmen</h3>
+        <p>by Eve Ewing</p>
+        <div class="comic-details" aria-live="polite">
+          <select class="status-select" aria-label="Set reading status">
+            <option value="">-- Mark as --</option>
+            <option value="current">Current Read</option>
+            <option value="to-read">To Read</option>
+            <option value="did-not-finish">Did Not Finish</option>
+          </select>
+          <div class="status-badge" aria-live="polite"></div>
+          <p><strong>Release:</strong> 2024-present</p>
+          <p><strong>Publisher:</strong> Marvel Comics</p>
+          <p><strong>Summary:</strong> After the fall of Krakoa, Kate Pryde is trying to get as far away from all things X as she possibly can. She's just a regular-degular bartender now. Definitely NOT getting ready to head up an ALL-NEW TEAM of wayward young mutants while avoiding the watchful gaze of Emma Frost. Nothing in this title but work, dating and staving off depression. That's it. No never-before-seen EXCEPTIONAL X-MEN to see here!</p>
+        </div>
+       <button class="view-more-btn details-btn">View More</button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      function openDetailsPage(comicData) {
+            localStorage.setItem("selectedComic", JSON.stringify(comicData));
+            window.location.href = 'expand-details.html';
+          }
+      const comicCards = document.querySelectorAll('.comic-card');
+      const searchInput = document.getElementById('searchInput');
+      const topPicksHeader = document.getElementById('topPicksHeader');
+      const searchResultsHeader = document.getElementById('searchResultsHeader');
+      const noResultsMessage = document.getElementById('noResults');
+
+      const userDisplay = document.getElementById('userDisplay');
+      const loginBtn = document.getElementById('loginBtn');
+      const logoutLink = document.getElementById('logoutLink');
+      const currentUser = localStorage.getItem('currentUser');
+
+    if (currentUser) {
+  userDisplay.innerHTML = `<a href="profile.html" id="profileLink" style="color:#71b2f7; font-weight: 600;">Logged in as: ${currentUser}</a>`;
+  loginBtn.style.display = 'none';
+  logoutLink.style.display = 'inline';
+} else {
+  userDisplay.textContent = '';
+  loginBtn.style.display = 'inline-block';
+  logoutLink.style.display = 'none';
+}
+
+
+      logoutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('currentUser');
+        location.reload();
+      });
+
+      function getRandomComics(cards, max = 5) {
+  const allComics = Array.from(cards);
+  const selected = [];
+  const titlesUsed = new Set();
+
+  while (selected.length < max && allComics.length > 0) {
+    const index = Math.floor(Math.random() * allComics.length);
+    const comic = allComics.splice(index, 1)[0];
+    const title = comic.dataset.title;
+
+    if (!titlesUsed.has(title)) {
+      titlesUsed.add(title);
+      selected.push(comic);
+    }
+  }
+
+  return selected;
+}
+
+function populateCarousel() {
+  const carouselTrack = document.querySelector('.carousel-track');
+  const cards = document.querySelectorAll('.comic-card');
+const selectedComics = Array.from(cards).slice(0, 6);  
+
+  selectedComics.forEach(card => {
+  const title = card.dataset.title;
+  const author = card.dataset.author;
+  const img = card.querySelector('img').src;
+  const summary = card.querySelector('.comic-details p:last-child')?.textContent;
+  const publisher = card.querySelector('.comic-details p:nth-child(4)')?.textContent.split(': ')[1];
+  const release = card.querySelector('.comic-details p:nth-child(3)')?.textContent.split(': ')[1];
+
+  const comicData = { title, author, img, summary, publisher, release };
+
+  const item = document.createElement('div');
+  //a href="expand-details"/>
+  item.className = 'carousel-item';
+  item.innerHTML = `
+    <div class="carousel-content" data-title="${title}">
+      <img src="${img}" alt="${title} Cover" />
+      <div class="carousel-text">
+        <h3 class="carousel-title clickable-title">${title}</h3>
+        <p class="carousel-author">by ${author}</p>
+      </div>
+    </div>
+  `;
+
+  item.addEventListener('click', () => openDetailsPage(comicData));
+
+  carouselTrack.appendChild(item);
+});
+
+}
+
+function setupCarouselControls() {
+  const track = document.querySelector('.carousel-track');
+  const items = document.querySelectorAll('.carousel-item');
+  const totalItems = items.length;
+  let currentIndex = 0;
+
+  function moveTo(index) {
+    currentIndex = (index + totalItems) % totalItems;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  document.querySelector('.carousel-btn.prev').addEventListener('click', () => moveTo(currentIndex - 1));
+  document.querySelector('.carousel-btn.next').addEventListener('click', () => moveTo(currentIndex + 1));
+}
+
+function organizeComicsByTheme() {
+  const comicCards = document.querySelectorAll('.comic-card');
+
+  comicCards.forEach(card => {
+    const theme = card.dataset.theme;
+const targetRow = document.querySelector(`.comic-row[data-theme="${theme}"]`);
+
+    if (theme && targetRow) {
+      targetRow.appendChild(card);
+    }
+  });
+}
+
+organizeComicsByTheme();
+
+document.querySelectorAll('.comic-card').forEach(card => {
+  const title = card.dataset.title;
+  const author = card.dataset.author;
+  const img = card.querySelector('img').src;
+  const summary = card.querySelector('.comic-details p:last-child')?.textContent;
+  const publisher = card.querySelector('.comic-details p:nth-child(4)')?.textContent.split(': ')[1];
+  const release = card.querySelector('.comic-details p:nth-child(3)')?.textContent.split(': ')[1];
+
+  const comicData = { title, author, img, summary, publisher, release };
+
+  const titleElem = card.querySelector('h3');
+  titleElem.style.cursor = 'pointer';
+  titleElem.addEventListener('click', () => openDetailsPage(comicData));
+});
+
+
+populateCarousel();
+setupCarouselControls();
+
+       function updateStatusUI(card, status) {
+        const badge = card.querySelector('.status-badge');
+        const statusSelect = card.querySelector('.status-select');
+
+        badge.classList.remove('current', 'to-read', 'did-not-finish');
+
+        if (status) {
+          const formatted = formatStatus(status);
+          badge.textContent = formatted;
+          badge.classList.add(status);
+          localStorage.setItem(`comicStatus_${card.dataset.title}`, status);
+        } else {
+          badge.textContent = '';
+          localStorage.removeItem(`comicStatus_${card.dataset.title}`);
+        }
+
+        if (statusSelect) {
+          statusSelect.value = status || '';
+        }
+      }
+
+      function formatStatus(status) {
+        switch (status) {
+          case 'current': return 'Current Read';
+          case 'to-read': return 'To Read';
+          case 'did-not-finish': return 'Did Not Finish';
+          default: return '';
+        }
+      }
+
+       comicCards.forEach(card => {
+        const statusSelect = card.querySelector('.status-select');
+        const savedStatus = localStorage.getItem(`comicStatus_${card.dataset.title}`);
+        updateStatusUI(card, savedStatus);
+
+        statusSelect.addEventListener('change', () => {
+          updateStatusUI(card, statusSelect.value);
+        });
+
+         const detailsBtn = card.querySelector('.view-more-btn');
+        detailsBtn.addEventListener('click', () => {
+          const expanded = card.classList.toggle('expanded');
+          detailsBtn.textContent = expanded ? 'View Less' : 'View More';
+          detailsBtn.setAttribute('aria-expanded', expanded);
+        });
+      });
+
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.trim().toLowerCase();
+
+        if (!query) {
+          topPicksHeader.style.display = 'block';
+          searchResultsHeader.style.display = 'none';
+          noResultsMessage.style.display = 'none';
+          comicCards.forEach(card => {
+            card.style.display = 'block';
+          });
+          return;
+        }
+
+        topPicksHeader.style.display = 'none';
+        searchResultsHeader.style.display = 'block';
+
+        let hasResults = false;
+
+        comicCards.forEach(card => {
+          const title = card.getAttribute('data-title').toLowerCase();
+          const author = card.getAttribute('data-author').toLowerCase();
+
+          if (title.includes(query) || author.includes(query)) {
+            card.style.display = 'block';
+            hasResults = true;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        noResultsMessage.style.display = hasResults ? 'none' : 'block';
+      });
+      const suggestionsList = document.getElementById('suggestionsList');
+
+function clearSuggestions() {
+  suggestionsList.innerHTML = '';
+  suggestionsList.style.display = 'none';
+}
+
+function showSuggestions(matches) {
+  clearSuggestions();
+  if (matches.length === 0) return;
+
+  matches.forEach(({ card, title, author }) => {
+    const li = document.createElement('li');
+    li.textContent = `${title} by ${author}`;
+    li.setAttribute('role', 'option');
+    li.tabIndex = 0;
+
+    li.addEventListener('click', () => {
+      searchInput.value = title;
+      filterComics(title.toLowerCase());
+      clearSuggestions();
+    });
+
+    li.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        li.click();
+      }
+    });
+
+    suggestionsList.appendChild(li);
+  });
+
+  suggestionsList.style.display = 'block';
+}
+
+function filterComics(query) {
+  const normalizedQuery = query.toLowerCase();
+  let hasResults = false;
+
+  comicCards.forEach(card => {
+    const title = card.getAttribute('data-title').toLowerCase();
+    const author = card.getAttribute('data-author').toLowerCase();
+
+    if (title.includes(normalizedQuery) || author.includes(normalizedQuery)) {
+      card.style.display = 'block';
+      hasResults = true;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  noResultsMessage.style.display = hasResults ? 'none' : 'block';
+  topPicksHeader.style.display = normalizedQuery ? 'none' : 'block';
+  searchResultsHeader.style.display = normalizedQuery ? 'block' : 'none';
+}
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.trim().toLowerCase();
+
+  if (!query) {
+    clearSuggestions();
+    filterComics('');
+    return;
+  }
+
+  
+  const matches = [];
+  comicCards.forEach(card => {
+    const title = card.getAttribute('data-title');
+    const author = card.getAttribute('data-author');
+
+    if (title.toLowerCase().includes(query) || author.toLowerCase().includes(query)) {
+      matches.push({ card, title, author });
+    }
+  });
+
+  showSuggestions(matches.slice(0, 6)); 
+  
+  filterComics(query);
+});
+
+ document.addEventListener('click', (e) => {
+  if (!document.querySelector('.sticky-search-container').contains(e.target)) {
+    clearSuggestions();
+  }
+});
+
+    });
+  </script>
+</body>
+</html>
